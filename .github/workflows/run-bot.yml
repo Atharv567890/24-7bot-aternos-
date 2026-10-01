@@ -1,0 +1,17 @@
+name: 24/7 Minecraft Bot
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '0 */5 * * *'
+  workflow_dispatch:
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 18
+    - run: npm install
+    - run: timeout 4.5h node index.js || true
